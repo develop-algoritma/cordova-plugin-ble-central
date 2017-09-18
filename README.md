@@ -26,7 +26,7 @@ See the [examples](https://github.com/don/cordova-plugin-ble-central/tree/master
 ## Notes
 This is a fork of [this original project](https://github.com/don/cordova-plugin-ble-central/tree/master/) written by [Don Coleman](https://github.com/don)
 
-We add support for [requestMtu](#requestMtu) function on Android if your device require more than 20 bytes data packet size.
+We add support for [requestMtu](#requestmtu) function on Android if your device require more than 20 bytes data packet size.
 
 ## Supported Platforms
 
@@ -74,7 +74,7 @@ This can be done when the plugin is installed using the BLUETOOTH_USAGE_DESCRIPT
 - [ble.stopScan](#stopscan)
 - [ble.connect](#connect)
 - [ble.disconnect](#disconnect)
-- [ble.requestMtu](#requestMtu)
+- [ble.requestMtu](#requestmtu)
 - [ble.read](#read)
 - [ble.write](#write)
 - [ble.writeWithoutResponse](#writewithoutresponse)
