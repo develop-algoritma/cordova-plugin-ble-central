@@ -24,9 +24,9 @@ _This plugin isn't intended for scanning beacons._ Try [cordova-plugin-ibeacon](
 See the [examples](https://github.com/don/cordova-plugin-ble-central/tree/master/examples) for ideas on how this plugin can be used.
 
 ## Notes
-This is a fork of [origial project](https://github.com/don/cordova-plugin-ble-central/tree/master/)
+This is a fork of [this original project](https://github.com/don/cordova-plugin-ble-central/tree/master/) written by [Don Coleman](https://github.com/don)
 
-We add support for requestMTU function on Android if your device require more than 20 bytes data packet size.
+We add support for [requestMtu](#requestMtu) function on Android if your device require more than 20 bytes data packet size.
 
 ## Supported Platforms
 
