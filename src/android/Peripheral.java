@@ -14,6 +14,7 @@
 
 package com.megster.cordova.ble.central;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 
 import android.bluetooth.*;
@@ -32,6 +33,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 /**
  * Peripheral wraps the BluetoothDevice and provides methods to convert to JSON.
  */
+@TargetApi(21)
 public class Peripheral extends BluetoothGattCallback {
 
     // 0x2902 org.bluetooth.descriptor.gatt.client_characteristic_configuration.xml
@@ -91,10 +93,21 @@ public class Peripheral extends BluetoothGattCallback {
         }
     }
 
+    @Override
+    public void onMtuChanged(BluetoothGatt gatt, int mtu, int status) {
+        LOG.d(TAG, "mtu=" + mtu + ", status=" + status);
+        super.onMtuChanged(gatt, mtu, status);
+    }
+
+    public void requestMtu(int mtuValue) {
+        if (gatt != null) {
+            LOG.d(TAG, "requestMtu mtu=" + mtuValue);
+            gatt.requestMtu(mtuValue);
+        }
+    }
+
     public JSONObject asJSONObject()  {
-
         JSONObject json = new JSONObject();
-
         try {
             json.put("name", device.getName());
             json.put("id", device.getAddress()); // mac address
