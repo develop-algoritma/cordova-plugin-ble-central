@@ -612,7 +612,7 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
 
         if(!PermissionHelper.hasPermission(this, ACCESS_COARSE_LOCATION)) {
             // save info so we can call this method again after permissions are granted
-            permissionCallback = callbackContext;
+            this.permissionCallback = callbackContext;
             this.serviceUUIDs = serviceUUIDs;
             this.scanSeconds = scanSeconds;
             PermissionHelper.requestPermission(this, REQUEST_ACCESS_COARSE_LOCATION, ACCESS_COARSE_LOCATION);
@@ -622,7 +622,7 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         if (Build.VERSION.SDK_INT >= 29 &&
                 (!PermissionHelper.hasPermission(this, ACCESS_FINE_LOCATION) || !PermissionHelper.hasPermission(this, ACCESS_BACKGROUND_LOCATION))) {
             // save info so we can call this method again after permissions are granted
-            permissionCallback = callbackContext;
+            this.permissionCallback = callbackContext;
             this.serviceUUIDs = serviceUUIDs;
             this.scanSeconds = scanSeconds;
             String[] permissions = { ACCESS_FINE_LOCATION, ACCESS_BACKGROUND_LOCATION };
@@ -791,10 +791,13 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
 
     /* @Override */
     public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+        CallbackContext callback = this.permissionCallback;
+        this.permissionCallback = null;
+
         for(int result:grantResults) {
             if(result == PackageManager.PERMISSION_DENIED) {
                 LOG.d(TAG, "User *rejected* Coarse Location Access");
-                this.permissionCallback.error("Location permission not granted.");
+                callback.error("Location permission not granted.");
                 return;
             }
         }
@@ -802,15 +805,13 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         switch(requestCode) {
             case REQUEST_ACCESS_COARSE_LOCATION:
                 LOG.d(TAG, "User granted Coarse Location Access");
-                findLowEnergyDevices(permissionCallback, serviceUUIDs, scanSeconds);
-                this.permissionCallback = null;
+                findLowEnergyDevices(callback, serviceUUIDs, scanSeconds);
                 this.serviceUUIDs = null;
                 this.scanSeconds = -1;
                 break;
             case REQUEST_ACCESS_LOCATIONS:
                 LOG.d(TAG, "User granted Background Location Access");
-                findLowEnergyDevices(permissionCallback, serviceUUIDs, scanSeconds);
-                this.permissionCallback = null;
+                findLowEnergyDevices(callback, serviceUUIDs, scanSeconds);
                 this.serviceUUIDs = null;
                 this.scanSeconds = -1;
                 break;
