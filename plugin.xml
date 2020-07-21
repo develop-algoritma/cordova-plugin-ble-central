@@ -56,15 +56,20 @@
             <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
             <uses-permission android:name="android.permission.BLUETOOTH"/>
             <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+            <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
         </config-file>
 
+        <source-file src="src/android/AutoResetEvent.java"
+            target-dir="src/com/megster/cordova/ble/central"/>
         <source-file src="src/android/BLECentralPlugin.java"
             target-dir="src/com/megster/cordova/ble/central"/>
         <source-file src="src/android/BLECommand.java"
             target-dir="src/com/megster/cordova/ble/central"/>
-        <source-file src="src/android/Peripheral.java"
+        <source-file src="src/android/GeolocationHelper.java"
             target-dir="src/com/megster/cordova/ble/central"/>
         <source-file src="src/android/Helper.java"
+            target-dir="src/com/megster/cordova/ble/central"/>
+        <source-file src="src/android/Peripheral.java"
             target-dir="src/com/megster/cordova/ble/central"/>
         <source-file src="src/android/UUIDHelper.java"
             target-dir="src/com/megster/cordova/ble/central"/>

@@ -1,6 +1,9 @@
 function notSupported() {
     console.log('BLE is not supported on the browser');
 }
+function notSupportedGeolocation() {
+    console.log('GEOLOCATION is not supported on the browser');
+}
 
 module.exports = {
     scan: function(services, seconds, success, failure) {
@@ -73,6 +76,10 @@ module.exports = {
     },
     stopStateNotifications: function(success, failure) {
       notSupported();
+      if (failure) failure();
+    },
+    enableGeolocation: function(success, failure){
+      notSupportedGeolocation();
       if (failure) failure();
     }
 };
