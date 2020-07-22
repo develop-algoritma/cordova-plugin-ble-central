@@ -89,6 +89,17 @@
     NSString *uuid = [command argumentAtIndex:0];
     
     CBPeripheral *peripheral = [self findPeripheralByUUID:uuid];
+
+    if (!peripheral) {
+        // effettua ricerca mirata sull'identificativo
+        NSArray<NSUUID *> *identifiers = [self uuidStringsToNSUUIDs: @[ uuid ]];
+        NSArray<CBPeripheral *> *foundPeripherals = [manager retrievePeripheralsWithIdentifiers:identifiers];
+        if (foundPeripherals && foundPeripherals.count > 0) {
+            peripheral = [foundPeripherals objectAtIndex:0];
+            [peripherals addObject:peripheral];
+            //[peripheral setAdvertisementData:advertisementData RSSI:RSSI];
+        }
+    }
     
     if (peripheral) {
         NSLog(@"Autoconnecting to peripheral with UUID : %@", uuid);
