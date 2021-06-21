@@ -40,7 +40,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.Switch;
 
-import com.google.android.gms.common.api.ResolvableApiException;
+//import com.google.android.gms.common.api.ResolvableApiException;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;
@@ -620,12 +620,12 @@ public class BLECentralPlugin extends CordovaPlugin implements BluetoothAdapter.
         }
 
         if (Build.VERSION.SDK_INT >= 29 &&
-                (!PermissionHelper.hasPermission(this, ACCESS_FINE_LOCATION) || !PermissionHelper.hasPermission(this, ACCESS_BACKGROUND_LOCATION))) {
+                !PermissionHelper.hasPermission(this, ACCESS_FINE_LOCATION)) {
             // save info so we can call this method again after permissions are granted
             this.permissionCallback = callbackContext;
             this.serviceUUIDs = serviceUUIDs;
             this.scanSeconds = scanSeconds;
-            String[] permissions = { ACCESS_FINE_LOCATION, ACCESS_BACKGROUND_LOCATION };
+            String[] permissions = { ACCESS_FINE_LOCATION};
             PermissionHelper.requestPermissions(this, REQUEST_ACCESS_LOCATIONS, permissions);
             return;
         }
